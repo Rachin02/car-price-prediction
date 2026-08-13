@@ -1,0 +1,4 @@
+fastapi
+docker
+streamlit
+scikit-learn
