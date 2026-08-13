@@ -30,7 +30,7 @@ def simplify_brand(x):
         return 'Other'
 
 
-def predict_car_price(brand, model_year, milage, fuel_type, engine_size, horsepower, cylinders, transmission, ext_col, int_col, accident):
+def predict_car_price(brand, model_year, milage, fuel_type, engine_size, horsepower, cylinders, transmission, accident):
 
 
     # Create dataframe
@@ -44,8 +44,6 @@ def predict_car_price(brand, model_year, milage, fuel_type, engine_size, horsepo
         'horsepower': horsepower,
         'cylinders': cylinders,
         'transmission': transmission,
-        'ext_col': ext_col,
-        'int_col': int_col,
         
     }])
 
@@ -90,19 +88,3 @@ def predict_car_price(brand, model_year, milage, fuel_type, engine_size, horsepo
     price = np.expm1(log_price)
 
     return price
-
-price = predict_car_price(
-    brand="Ford",
-    model_year=2024,
-    milage=51000,
-    fuel_type="Gasoline",
-    engine_size = 3.7,
-    horsepower = 600.0,
-    cylinders = 6,
-    transmission="Manual",
-    ext_col="Black",
-    int_col="Black",
-    accident="No"
-)
-
-print(f"Predicted car price: ${price:,.2f}")
