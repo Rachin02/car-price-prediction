@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Car Price Predictor</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="background-glow glow-1"></div>
+    <div class="background-glow glow-2"></div>
+
+    <main class="container">
+
+        <!-- Header -->
+        <section class="hero">
+
+            <div class="car-icon">
+                🚗
+            </div>
+
+            <h1>Car Price Predictor</h1>
+
+            <p>
+                AI-powered vehicle valuation based on your car specifications
+            </p>
+
+        </section>
+
+
+        <!-- Main Card -->
+        <section class="form-card">
+
+            <div class="section-title">
+                <span>🚘</span>
+                <h2>Vehicle Information</h2>
+            </div>
+
+
+            <form id="predictionForm">
+
+                <div class="form-grid">
+
+                    <!-- Brand -->
+                    <div class="form-group">
+
+                        <label for="brand">
+                            Car Brand
+                        </label>
+
+                        <input
+                            type="text"
+                            id="brand"
+                            name="brand"
+                            value="Ford"
+                            placeholder="e.g. Toyota"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Model Year -->
+                    <div class="form-group">
+
+                        <label for="model_year">
+                            Model Year
+                        </label>
+
+                        <input
+                            type="number"
+                            id="model_year"
+                            name="model_year"
+                            value="2024"
+                            min="1980"
+                            max="2026"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Mileage -->
+                    <div class="form-group">
+
+                        <label for="milage">
+                            Mileage
+                        </label>
+
+                        <input
+                            type="number"
+                            id="milage"
+                            name="milage"
+                            value="51000"
+                            min="0"
+                            step="1000"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Fuel Type -->
+                    <div class="form-group">
+
+                        <label for="fuel_type">
+                            Fuel Type
+                        </label>
+
+                        <select id="fuel_type" name="fuel_type">
+
+                            <option value="Gasoline">
+                                Gasoline
+                            </option>
+
+                            <option value="Hybrid">
+                                Hybrid
+                            </option>
+
+                            <option value="Diesel">
+                                Diesel
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Engine Size -->
+                    <div class="form-group">
+
+                        <label for="engine_size">
+                            Engine Size (L)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="engine_size"
+                            name="engine_size"
+                            value="3.7"
+                            min="0.5"
+                            max="10"
+                            step="0.1"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Horsepower -->
+                    <div class="form-group">
+
+                        <label for="horsepower">
+                            Horsepower
+                        </label>
+
+                        <input
+                            type="number"
+                            id="horsepower"
+                            name="horsepower"
+                            value="600"
+                            min="50"
+                            max="2000"
+                            step="10"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Cylinders -->
+                    <div class="form-group">
+
+                        <label for="cylinders">
+                            Cylinders
+                        </label>
+
+                        <input
+                            type="number"
+                            id="cylinders"
+                            name="cylinders"
+                            value="6"
+                            min="2"
+                            max="16"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Transmission -->
+                    <div class="form-group">
+
+                        <label for="transmission">
+                            Transmission
+                        </label>
+
+                        <select
+                            id="transmission"
+                            name="transmission"
+                        >
+
+                            <option value="CVT">
+                                CVT
+                            </option>
+
+                            <option value="Manual">
+                                Manual
+                            </option>
+
+                            <option value="Automatic">
+                                Automatic
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Accident -->
+                    <div class="form-group">
+
+                        <label for="accident">
+                            Previous Accident?
+                        </label>
+
+                        <select
+                            id="accident"
+                            name="accident"
+                        >
+
+                            <option value="No">
+                                No
+                            </option>
+
+                            <option value="Yes">
+                                Yes
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Button -->
+                <button
+                    type="submit"
+                    class="predict-button"
+                    id="predictButton"
+                >
+
+                    <span id="buttonText">
+                        🔮 Predict Car Price
+                    </span>
+
+                    <span
+                        id="loadingText"
+                        class="hidden"
+                    >
+                        Analyzing Vehicle...
+                    </span>
+
+                </button>
+
+            </form>
+
+
+            <!-- Prediction Result -->
+            <div
+                id="predictionBox"
+                class="prediction-box hidden"
+            >
+
+                <div class="prediction-title">
+                    Estimated Car Price
+                </div>
+
+                <div
+                    id="predictionValue"
+                    class="prediction-value"
+                >
+                    $0
+                </div>
+
+            </div>
+
+
+            <!-- Error -->
+            <div
+                id="errorBox"
+                class="error-box hidden"
+            >
+                <span>⚠️</span>
+                <span id="errorMessage"></span>
+            </div>
+
+        </section>
+
+
+        <!-- Footer -->
+        <footer>
+
+            Powered by
+            <span>Machine Learning</span>
+            • FastAPI
+            • AI
+
+        </footer>
+
+    </main>
+
+
+    <!-- API Connection -->
+    <script>
+
+        const API_URL = "http://127.0.0.1:8000/predict";
+
+        const form = document.getElementById("predictionForm");
+
+        const button = document.getElementById("predictButton");
+
+        const buttonText = document.getElementById("buttonText");
+
+        const loadingText = document.getElementById("loadingText");
+
+        const predictionBox =
+            document.getElementById("predictionBox");
+
+        const predictionValue =
+            document.getElementById("predictionValue");
+
+        const errorBox =
+            document.getElementById("errorBox");
+
+        const errorMessage =
+            document.getElementById("errorMessage");
+
+
+        form.addEventListener("submit", async function(event) {
+
+            event.preventDefault();
+
+
+            // Hide previous results
+            predictionBox.classList.add("hidden");
+
+            errorBox.classList.add("hidden");
+
+
+            // Loading state
+            button.disabled = true;
+
+            buttonText.classList.add("hidden");
+
+            loadingText.classList.remove("hidden");
+
+
+            // Collect form data
+            const data = {
+
+                brand: document.getElementById("brand").value,
+
+                model_year: Number(
+                    document.getElementById("model_year").value
+                ),
+
+                milage: Number(
+                    document.getElementById("milage").value
+                ),
+
+                fuel_type:
+                    document.getElementById("fuel_type").value,
+
+                engine_size: Number(
+                    document.getElementById("engine_size").value
+                ),
+
+                horsepower: Number(
+                    document.getElementById("horsepower").value
+                ),
+
+                cylinders: Number(
+                    document.getElementById("cylinders").value
+                ),
+
+                transmission:
+                    document.getElementById("transmission").value,
+
+                accident:
+                    document.getElementById("accident").value
+            };
+
+
+            try {
+
+                const response = await fetch(
+                    API_URL,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify(data)
+                    }
+                );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "API request failed: " +
+                        response.status
+                    );
+
+                }
+
+
+                const prediction =
+                    await response.json();
+
+
+                // Display prediction
+                predictionValue.textContent =
+                    "$" + prediction.price;
+
+
+                predictionBox.classList.remove("hidden");
+
+
+            } catch (error) {
+
+                errorMessage.textContent =
+                    "Unable to connect to the prediction API.";
+
+                errorBox.classList.remove("hidden");
+
+                console.error(error);
+
+            }
+
+
+            // Reset button
+            button.disabled = false;
+
+            buttonText.classList.remove("hidden");
+
+            loadingText.classList.add("hidden");
+
+        });
+
+    </script>
+
+</body>
+
+</html>

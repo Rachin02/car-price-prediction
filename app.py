@@ -1,9 +1,18 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from schema.input_value import UserInput
 from model.predict import predict_car_price
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def car_price_prediction():
@@ -26,7 +35,7 @@ def predict_price(user_input: UserInput):
 
             price = predict_car_price(brand, model_year, milage, fuel_type, engine_size, horsepower, cylinders, transmission, accident)
  
-            return JSONResponse(status_code= 200 , content={"price": price})
+            return JSONResponse(status_code= 200 , content={"price": round(price, 2)})
         except Exception as e:
              return HTTPException(status_code=400, detail=e)
 
